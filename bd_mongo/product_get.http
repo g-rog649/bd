@@ -1,0 +1,22 @@
+GET http://localhost:5000/products
+Accept: application/json
+
+###
+
+GET http://localhost:5000/products?name=show&description=show
+Accept: application/json
+
+###
+
+GET http://localhost:5000/products?name=asc
+Accept: application/json
+
+###
+
+GET http://localhost:5000/products?price=desc
+Accept: application/json
+
+###
+
+GET http://localhost:5000/products?price=desc&name=show
+Accept: application/json

@@ -1,0 +1,57 @@
+DELETE http://localhost:5000/products
+
+######
+
+POST http://localhost:5000/product/add
+Content-Type: application/json
+
+{
+  "name": "Polska marchew",
+  "price": 2.59,
+  "description": "Dobra polska marchew",
+  "amount": 5.284,
+  "unit": "kg"
+}
+
+###
+
+POST http://localhost:5000/product/add
+Content-Type: application/json
+
+{
+  "name": "Pomidor malinowy",
+  "price": 3.49,
+  "description": "Pomidor o kolorze malinowym",
+  "amount": 47,
+  "unit": "szt"
+}
+###
+
+POST http://localhost:5000/product/add
+Content-Type: application/json
+
+{
+  "name": "Seler korzeniowy",
+  "price": 5.99,
+  "description": "Korzeń selera",
+  "amount": 1.56,
+  "unit": "kg"
+}
+
+###
+
+POST http://localhost:5000/product/add
+Content-Type: application/json
+
+{
+    "name": "Sok jabłkowy",
+    "price": 9.99,
+    "description": "Wyciśnięte jabłka w formie soku",
+    "amount": 17,
+    "unit": "l"
+}
+
+######
+
+GET http://localhost:5000/products
+Accept: application/json
