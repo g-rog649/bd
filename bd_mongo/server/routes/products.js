@@ -60,10 +60,13 @@ productRoutes.route("/products").get((req, res) => {
   dbConnect
     .collection("products")
     .aggregate(options)
-    .toArray((err, response) => {
-      if (err) throw err;
-      res.json(response);
-    });
+    .toArray()
+    .then(
+      (result) => res.json(result),
+      (err) => {
+        throw err;
+      }
+    );
 });
 
 // Add a product to the database
@@ -140,22 +143,34 @@ productRoutes.route("/products/:id").delete((req, res) => {
 
   dbConnect
     .collection("products")
-    .deleteOne({ _id: new ObjectId(req.params.id) }, (err, response) => {
-      if (err) throw err;
-      console.log(`Deleted product with ID ${req.params.id}`);
-      res.json(response);
-    });
+    .deleteOne({ _id: new ObjectId(req.params.id) })
+    .then(
+      (result) => {
+        console.log(`Deleted product with ID ${req.params.id}`);
+        res.json(result);
+      },
+      (err) => {
+        throw err;
+      }
+    );
 });
 
 // Remove all products from the database
 productRoutes.route("/products").delete((req, res) => {
   const dbConnect = dbo.getDb("shop");
 
-  dbConnect.collection("products").deleteMany({}, (err, response) => {
-    if (err) throw err;
-    console.log("Deleted all products");
-    res.json(response);
-  });
+  dbConnect
+    .collection("products")
+    .deleteMany({})
+    .then(
+      (result) => {
+        console.log(`Deleted all products`);
+        res.json(result);
+      },
+      (err) => {
+        throw err;
+      }
+    );
 });
 
 // Generate a product report
