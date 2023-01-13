@@ -158,4 +158,32 @@ productRoutes.route("/products").delete((req, res) => {
   });
 });
 
+// Generate a product report
+productRoutes.route("/products/report").get((req, res) => {
+  const dbConnect = dbo.getDb("shop");
+
+  const result = dbConnect
+    .collection("products")
+    .aggregate([
+      {
+        $unset: "description",
+      },
+      {
+        $addFields: {
+          allPrice: {
+            $trunc: [{ $sum: { $multiply: ["$price", "$amount"] } }, 2],
+          },
+        },
+      },
+    ])
+    .sort({ allPrice: -1 })
+    .toArray()
+    .then(
+      (result) => res.json(result),
+      (err) => {
+        throw err;
+      }
+    );
+});
+
 module.exports = productRoutes;
