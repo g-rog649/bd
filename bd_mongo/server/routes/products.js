@@ -101,6 +101,38 @@ productRoutes.route("/product/add").post((req, res) => {
     );
 });
 
+productRoutes.route("/products/:id").put((req, res) => {
+  const dbConnect = dbo.getDb("shop");
+
+  const updateFields = {};
+  const errors = {};
+  let noErrors = true;
+
+  Object.entries(productFields).forEach(([field, type]) => {
+    const bodyValue = req.body[field];
+    if (typeof bodyValue === type) {
+      updateFields[field] = bodyValue;
+    } else if (typeof bodyValue !== "undefined") {
+      errors[field] = `not a ${type}`;
+      noErrors = false;
+    }
+  });
+
+  if (noErrors) {
+    dbConnect
+      .collection("products")
+      .updateOne({ _id: new ObjectId(req.params.id) }, { $set: updateFields })
+      .then(
+        (result) => res.json(result),
+        (err) => {
+          throw err;
+        }
+      );
+  } else {
+    res.json({ errors });
+  }
+});
+
 // Remove all products from the database
 productRoutes.route("/products").delete((req, res) => {
   const dbConnect = dbo.getDb("products");

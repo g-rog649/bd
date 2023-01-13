@@ -1,0 +1,25 @@
+POST http://localhost:5000/product/add
+Content-Type: application/json
+
+{
+  "name": "Polska marchew",
+  "price": 2.59,
+  "description": "Dobra polska marchew",
+  "amount": 5.284,
+  "unit": "kg"
+}
+
+###
+
+GET http://localhost:5000/products?name=show
+Accept: application/json
+
+###
+
+# Replace the ID with the one received from the GET request
+PUT http://localhost:5000/products/63c18d8615625f7e8f240b3a
+Content-Type: application/json
+
+{
+  "name": "Marchew z Polski"
+}
