@@ -14,7 +14,6 @@ const productFields = {
 // Get all the products from the database
 productRoutes.route("/products").get((req, res) => {
   const dbConnect = dbo.getDb("shop");
-  console.log(req.query);
   const routeOptions = Object.keys(productFields).map((field) => [
     field,
     req.query[field],
@@ -71,14 +70,35 @@ productRoutes.route("/products").get((req, res) => {
 productRoutes.route("/product/add").post((req, res) => {
   const dbConnect = dbo.getDb("shop");
 
-  const addedProduct = Object.fromEntries(
-    Object.keys(productFields).map((field) => [field, req.body[field]])
-  );
+  // Try to add the product
+  dbConnect
+    .collection("products")
+    .findOne({ name: req.body.name })
+    .then(
+      (res) =>
+        // Check if name unique
+        new Promise((resolve, reject) => (res === null ? resolve() : reject())),
+      (err) => {
+        throw err;
+      }
+    )
+    .then(
+      // Insert the product
+      () => {
+        const addedProduct = Object.fromEntries(
+          Object.keys(productFields).map((field) => [field, req.body[field]])
+        );
 
-  dbConnect.collection("products").insertOne(addedProduct, (err, response) => {
-    if (err) throw err;
-    res.json(response);
-  });
+        dbConnect
+          .collection("products")
+          .insertOne(addedProduct, (err, response) => {
+            if (err) throw err;
+            res.json(response);
+          });
+      },
+      // Name not unique
+      () => res.json({ error: "Product already exists!" })
+    );
 });
 
 // Remove all products from the database
