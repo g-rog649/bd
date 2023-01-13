@@ -23,3 +23,12 @@ Content-Type: application/json
 {
   "name": "Marchew z Polski"
 }
+
+###
+
+PUT http://localhost:5000/products/63c18d8615625f7e8f240b3a
+Content-Type: application/json
+
+{
+  "name": 1234
+}
