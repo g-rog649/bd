@@ -101,6 +101,7 @@ productRoutes.route("/product/add").post((req, res) => {
     );
 });
 
+// Edit a product from the database
 productRoutes.route("/products/:id").put((req, res) => {
   const dbConnect = dbo.getDb("shop");
 
