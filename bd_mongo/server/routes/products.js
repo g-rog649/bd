@@ -136,7 +136,7 @@ productRoutes.route("/products/:id").put((req, res) => {
 
 // Remove a product from the database
 productRoutes.route("/products/:id").delete((req, res) => {
-  const dbConnect = dbo.getDb("products");
+  const dbConnect = dbo.getDb("shop");
 
   dbConnect
     .collection("products")
@@ -149,7 +149,7 @@ productRoutes.route("/products/:id").delete((req, res) => {
 
 // Remove all products from the database
 productRoutes.route("/products").delete((req, res) => {
-  const dbConnect = dbo.getDb("products");
+  const dbConnect = dbo.getDb("shop");
 
   dbConnect.collection("products").deleteMany({}, (err, response) => {
     if (err) throw err;
