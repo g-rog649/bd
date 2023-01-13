@@ -134,6 +134,19 @@ productRoutes.route("/products/:id").put((req, res) => {
   }
 });
 
+// Remove a product from the database
+productRoutes.route("/products/:id").delete((req, res) => {
+  const dbConnect = dbo.getDb("products");
+
+  dbConnect
+    .collection("products")
+    .deleteOne({ _id: new ObjectId(req.params.id) }, (err, response) => {
+      if (err) throw err;
+      console.log(`Deleted product with ID ${req.params.id}`);
+      res.json(response);
+    });
+});
+
 // Remove all products from the database
 productRoutes.route("/products").delete((req, res) => {
   const dbConnect = dbo.getDb("products");
