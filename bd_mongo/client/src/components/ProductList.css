@@ -1,0 +1,15 @@
+.formFieldContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.formField {
+  border: 1px solid black;
+  padding: 0.2em;
+}
+
+.sortButton {
+  display: grid;
+  grid-template-columns: 1fr 1.5em;
+}
