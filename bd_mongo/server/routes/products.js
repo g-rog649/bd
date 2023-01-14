@@ -1,3 +1,4 @@
+const { ObjectID } = require("bson");
 const express = require("express");
 const productRoutes = express.Router();
 const dbo = require("../db/conn");
@@ -112,6 +113,12 @@ productRoutes.route("/products/:id").put((req, res) => {
   const errors = {};
   let noErrors = true;
 
+  if (!ObjectID.isValid(req.params.id)) {
+    errors.id = "wrong ID format";
+    res.json({ errors });
+    return;
+  }
+
   Object.entries(productFields).forEach(([field, type]) => {
     const bodyValue = req.body[field];
     if (typeof bodyValue === type) {
@@ -140,6 +147,11 @@ productRoutes.route("/products/:id").put((req, res) => {
 // Remove a product from the database
 productRoutes.route("/products/:id").delete((req, res) => {
   const dbConnect = dbo.getDb("shop");
+
+  if (!ObjectID.isValid(req.params.id)) {
+    res.json({ error: "wrong ID format" });
+    return;
+  }
 
   dbConnect
     .collection("products")

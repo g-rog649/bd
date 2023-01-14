@@ -21,5 +21,11 @@ DELETE http://localhost:5000/products/63c18d8615625f7e8f240b3a
 
 ###
 
+# Incorrect ID
+
+DELETE http://localhost:5000/products/alamakota
+
+###
+
 GET http://localhost:5000/products
 Accept: application/json
