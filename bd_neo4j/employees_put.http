@@ -1,0 +1,23 @@
+### Get employees before changes
+
+GET http://localhost:5000/employees
+
+### Update Adam to Jerry
+PUT http://localhost:5000/employees/Adam_Woods
+Content-Type: application/json
+
+{
+    "firstName": "Jerry"
+}
+
+### Get employees after changes
+
+GET http://localhost:5000/employees
+
+### Update back
+PUT http://localhost:5000/employees/Jerry_Woods
+Content-Type: application/json
+
+{
+    "firstName": "Adam"
+}

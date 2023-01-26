@@ -1,1 +1,7 @@
-GET http://localhost:5000/employees
+### Get Watson, department descending
+
+GET http://localhost:5000/employees?lastName=Watson&department=,desc
+
+### Get Watson, department ascending
+
+GET http://localhost:5000/employees?lastName=Watson&department=,asc

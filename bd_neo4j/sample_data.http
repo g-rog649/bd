@@ -57,6 +57,10 @@ WHERE n.lastName = "Watson" AND d.name = "Design"
 CREATE (n)-[:WORKS_IN]->(d);
 
 MATCH (n:Employee), (d:Department)
+WHERE n.lastName = "Watson" AND d.name = "Software Engineering"
+CREATE (n)-[:WORKS_IN]->(d);
+
+MATCH (n:Employee), (d:Department)
 WHERE n.lastName = "Colt" AND d.name = "Finance"
 CREATE (n)-[:MANAGES]->(d);
 

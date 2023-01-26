@@ -1,4 +1,4 @@
 flask
 neo4j
 python-dotenv
-
+itertools

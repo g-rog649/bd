@@ -1,0 +1,8 @@
+### Department ascending
+
+GET http://localhost:5000/departments?department=,asc
+
+### Employee count equal to 1
+
+GET http://localhost:5000/departments?employeeCount=1
+
